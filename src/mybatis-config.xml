@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<!--配置properties文件位置	-->
+	<properties resource="datasource.properties"></properties>
+	<settings>
+		<!--<setting name="logImpl" value="log4j"/>-->
+		<!--还可使用mybatis官方提供的日志，不用添加log4j的jar包和配置文件-->
+		<setting name="logImpl" value="org.apache.ibatis.logging.stdout.StdOutImpl"/>
+	</settings>
+	<!--别名配置	-->
+	<typeAliases>
+		<package name="entity"/>
+	</typeAliases>
+	<plugins>
+		<!--注意这里要写成PageInterceptor, 5.0之前的版本都是写PageHelper, 5.0之后要换成PageInterceptor-->
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<property name="reasonable" value="true" />
+		</plugin>
+	</plugins>
+	<!-- 当前应用所有环境的配置 default默认使用哪个环境配置 -->
+	<environments default="mybatis">
+		<!-- 配置一种环境配置 id当前环境配置的唯一标识符,供父标签default使用 -->
+		<environment id="mybatis">
+			<!-- 事务管理器-->
+			<transactionManager type="JDBC"></transactionManager>
+			<!-- 连接信息-->
+			<dataSource type="POOLED" >
+<!--				<property name="driver" value="com.mysql.jdbc.Driver"/>-->
+<!--				<property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis?useUnicode=true&amp;characterEncoding=utf8"/>-->
+<!--				<property name="username" value="root"/>-->
+<!--				<property name="password" value="root"/>-->
+				<property name="driver" value="${jdbc.driverClassName}"/>
+				<property name="url" value="${jdbc.url}"/>
+				<property name="username" value="${jdbc.username}"/>
+				<property name="password" value="${jdbc.password}"/>
+				<property name="poolMaximumActiveConnections" value="300"/>
+				<property name="poolMaximumIdleConnections" value="10"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<!-- mapper文件的位置	-->
+	<mappers> 		 
+ 		<mapper resource="dao/mapper/UserMapper.xml"/> 	
+ 		<mapper resource="dao/mapper/ProductMapper.xml"/> 		 
+	</mappers>
+
+
+</configuration>

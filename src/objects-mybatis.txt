@@ -1,0 +1,8 @@
+tm=transaction.impl.TransactionImpl
+userService=service.proxy.UserProxy
+userServiceTarget=service.impl.UserServiceImpl
+userDao=dao.UserDao
+
+productService=service.proxy.ProductServiceProxy
+productServiceTarget=service.impl.ProductServiceImpl
+productDao=dao.ProductDao
